@@ -26,9 +26,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        login.findViewById(R.id.etLogin);
-        password.findViewById(R.id.etPass);
-        connection.findViewById(R.id.btnValidate);
+        login = (EditText)findViewById(R.id.etLogin);
+        password = (EditText)findViewById(R.id.etPass);
+        connection = (Button)findViewById(R.id.btnValidate);
         connection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

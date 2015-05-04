@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -29,6 +30,11 @@ public class CityListActivity extends AppCompatActivity {
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
 
+    private TextView login;
+    private TextView password;
+
+    private final String EXTRA_LOGIN = "login";
+    private final String EXTRA_PASSWORD = "password";
 
 
     @Override
@@ -93,6 +99,20 @@ public class CityListActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Intent intent = getIntent();
+
+        String testPass = intent.getStringExtra(EXTRA_PASSWORD);
+        String testLog = intent.getStringExtra(EXTRA_LOGIN);
+
+        String loginTxt = String.format("Bienvenue %s ton mot de passe est %s :D",
+                intent.getStringExtra(EXTRA_LOGIN), intent.getStringExtra(EXTRA_PASSWORD));
+
+        login = (TextView)findViewById(R.id.tvWelcome);
+        login.setText(loginTxt);
+
+
+
     }
 
 
