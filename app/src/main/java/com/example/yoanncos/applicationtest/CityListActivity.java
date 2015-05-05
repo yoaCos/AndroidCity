@@ -1,9 +1,12 @@
 package com.example.yoanncos.applicationtest;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -22,7 +25,7 @@ import java.util.ArrayList;
 /**
  * Created by Yoann.Cos on 04/05/2015.
  */
-public class CityListActivity extends AppCompatActivity {
+public class CityListActivity extends AppCompatActivity{
 
 
     private String[] mMenuSections;
@@ -101,18 +104,17 @@ public class CityListActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
+      //String passTxt = intent.getStringExtra(EXTRA_PASSWORD);
+      //String loginTxt = intent.getStringExtra(EXTRA_LOGIN);
 
-        String testPass = intent.getStringExtra(EXTRA_PASSWORD);
-        String testLog = intent.getStringExtra(EXTRA_LOGIN);
-
-        String loginTxt = String.format("Bienvenue %s ton mot de passe est %s :D",
-                intent.getStringExtra(EXTRA_LOGIN), intent.getStringExtra(EXTRA_PASSWORD));
+       String loginTxt = String.format("Bienvenue %s ton mot de passe est %s :D",
+               intent.getStringExtra(EXTRA_LOGIN), intent.getStringExtra(EXTRA_PASSWORD));
 
         login = (TextView)findViewById(R.id.tvWelcome);
+       // password = (TextView)findViewById(R.id.tvTest);
+
         login.setText(loginTxt);
-
-
-
+      //  password.setText(passTxt);
     }
 
 
@@ -143,6 +145,7 @@ public class CityListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onPostCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onPostCreate(savedInstanceState, persistentState);
@@ -162,33 +165,40 @@ public class CityListActivity extends AppCompatActivity {
         City paris = new City();
         paris.setCityName("Paris");
         paris.setCountryName("France");
+        paris.setCityImg(ResourcesCompat.getDrawable(getResources(), R.drawable.paros, null));
         arrayListCity.add(paris);
 
         City madrid = new City();
         madrid.setCityName("Madrid");
         madrid.setCountryName("Espagne");
+        madrid.setCityImg(ResourcesCompat.getDrawable(getResources(), R.drawable.madrid, null));
         arrayListCity.add(madrid);
 
         City londres = new City();
         londres.setCityName("Londres");
         londres.setCountryName("Angleterre");
+        londres.setCityImg(ResourcesCompat.getDrawable(getResources(), R.drawable.londres, null));
         arrayListCity.add(londres);
 
-        City munich = new City();
-        munich.setCityName("Berlin");
-        munich.setCountryName("Allemagne");
-        arrayListCity.add(munich);
+        City berlin = new City();
+        berlin.setCityName("Berlin");
+        berlin.setCountryName("Allemagne");
+        berlin.setCityImg(ResourcesCompat.getDrawable(getResources(), R.drawable.berlin, null));
+        arrayListCity.add(berlin);
 
         City rome = new City();
         rome.setCityName("Rome");
         rome.setCountryName("Italie");
+        rome.setCityImg(ResourcesCompat.getDrawable(getResources(), R.drawable.url, null));
         arrayListCity.add(rome);
 
         City lisbone = new City();
         lisbone.setCityName("Lisbone");
         lisbone.setCountryName("Portugal");
+        rome.setCityImg(ResourcesCompat.getDrawable(getResources(), R.drawable.lisbonne, null));
         arrayListCity.add(lisbone);
     }
+
 
 
 }

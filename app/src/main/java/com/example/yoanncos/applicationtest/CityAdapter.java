@@ -2,10 +2,12 @@ package com.example.yoanncos.applicationtest;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -42,14 +44,18 @@ public class CityAdapter extends ArrayAdapter<City> {
             if (arrayCityList != null){
                 final TextView tvCity = (TextView)view.findViewById(R.id.tvCity);
                 final TextView tvCountry = (TextView)view.findViewById(R.id.tvCountry);
+                final ImageView imgCity = (ImageView)view.findViewById(R.id.iconCity);
 
                 final String cityName = String.format(res.getString(R.string.name_city)
                         + " " + city.getCityName());
                 final String countryName = String.format(res.getString(R.string.name_country)
                         + " " + city.getCountryName());
 
+                final Drawable cityImage = city.getCityImg();
+
                 tvCity.setText(cityName);
                 tvCountry.setText(countryName);
+                imgCity.setImageDrawable(cityImage);
             }
         }  return view;
     }

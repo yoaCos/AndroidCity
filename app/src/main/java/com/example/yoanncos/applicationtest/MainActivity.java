@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private final String EXTRA_LOGIN = "login";
-    private final String EXTRA_PASSWORD = "passsword";
+    private final String EXTRA_PASSWORD = "password";
 
     private EditText login;
     private EditText password;
@@ -65,5 +65,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_PASSWORD, password.getText().toString());
         startActivity(intent);
     }
+
 
 }
