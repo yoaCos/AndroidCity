@@ -6,7 +6,6 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,6 +18,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.yoanncos.applicationtest.Adapter.CityAdapter;
+import com.example.yoanncos.applicationtest.Entity.City;
 
 import java.util.ArrayList;
 
@@ -50,7 +52,7 @@ public class CityListActivity extends AppCompatActivity{
         actionBar.setHomeButtonEnabled(true);
 
         final ArrayList<City> arrayListCity = new ArrayList<>();
-        initList(arrayListCity);
+        City.initList(arrayListCity);
 
         final CityAdapter cityAdapter = new CityAdapter(this, R.layout.row_city, arrayListCity);
         ListView listCityCountry = (ListView)findViewById(R.id.listeVille);
@@ -96,9 +98,14 @@ public class CityListActivity extends AppCompatActivity{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
+
                     case 0 :
                         Intent intent = new Intent(CityListActivity.this, BidonActivity.class);
                         startActivity(intent);
+                        break;
+                    case 1 :
+                        Intent intent1 = new Intent(CityListActivity.this, MayorListActivity.class);
+                        startActivity(intent1);
                 }
             }
         });
@@ -160,44 +167,7 @@ public class CityListActivity extends AppCompatActivity{
     }
 
 
-    private void initList(ArrayList<City> arrayListCity) {
 
-        City paris = new City();
-        paris.setCityName("Paris");
-        paris.setCountryName("France");
-        paris.setCityImg(ResourcesCompat.getDrawable(getResources(), R.drawable.paros, null));
-        arrayListCity.add(paris);
-
-        City madrid = new City();
-        madrid.setCityName("Madrid");
-        madrid.setCountryName("Espagne");
-        madrid.setCityImg(ResourcesCompat.getDrawable(getResources(), R.drawable.madrid, null));
-        arrayListCity.add(madrid);
-
-        City londres = new City();
-        londres.setCityName("Londres");
-        londres.setCountryName("Angleterre");
-        londres.setCityImg(ResourcesCompat.getDrawable(getResources(), R.drawable.londres, null));
-        arrayListCity.add(londres);
-
-        City berlin = new City();
-        berlin.setCityName("Berlin");
-        berlin.setCountryName("Allemagne");
-        berlin.setCityImg(ResourcesCompat.getDrawable(getResources(), R.drawable.berlin, null));
-        arrayListCity.add(berlin);
-
-        City rome = new City();
-        rome.setCityName("Rome");
-        rome.setCountryName("Italie");
-        rome.setCityImg(ResourcesCompat.getDrawable(getResources(), R.drawable.url, null));
-        arrayListCity.add(rome);
-
-        City lisbone = new City();
-        lisbone.setCityName("Lisbone");
-        lisbone.setCountryName("Portugal");
-        rome.setCityImg(ResourcesCompat.getDrawable(getResources(), R.drawable.lisbonne, null));
-        arrayListCity.add(lisbone);
-    }
 
 
 

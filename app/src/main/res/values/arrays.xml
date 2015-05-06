@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="navigation_drawer">
-        <item>Menu1</item>
-        <item>Menu2</item>
+        <item>Bidon</item>
+        <item>Maires</item>
         <item>Menu3</item>
         <item>Menu4</item>
         <item>Menu5</item>

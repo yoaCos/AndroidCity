@@ -1,13 +1,18 @@
 <resources>
     <string name="app_name">Application Test</string>
-
     <string name="hello_world">Hello world!</string>
     <string name="welcome">Bienvenue, identifiez-vous</string>
     <string name="login">NOM D\'UTILISATEUR</string>
     <string name="pass">PASSWORD</string>
     <string name="action_settings">Settings</string>
-    <string name="name_city">Nom : </string>
+    <string name="name_city">Ville : </string>
     <string name="name_country">Pays : </string>
+    <string name="name">Nom : </string>
+    <string formatted= "false" name="mayor_info">%s agé(e) de %d ans</string>
+    <string formatted= "false" name="mayor_of_til">Maire de %s, depuis %d ans!</string>
+    <string formatted= "false" name="age_of">Agé de %s ans</string>
+    <string formatted= "false" name="mayor_of">Maire de %s</string>
+    <string formatted= "false" name="experience">%s année(s) d\'expérience(s)</string>
     <string name="action_share">Partager</string>
     <string name="action_search">Rechercher</string>
     <string name="action_information">Infos</string>

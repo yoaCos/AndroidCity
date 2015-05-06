@@ -21,6 +21,17 @@
             android:label="@string/app_name" >
         </activity>
 
+
+        <activity
+            android:name=".MayorListActivity"
+            android:label="@string/app_name" >
+        </activity>
+
+        <activity
+            android:name=".MayorActivity"
+            android:label="@string/app_name" >
+        </activity>
+
         <activity
             android:name=".BidonActivity"
             android:label="@string/app_name"
