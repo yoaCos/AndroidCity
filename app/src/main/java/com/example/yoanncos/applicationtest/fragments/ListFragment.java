@@ -1,6 +1,8 @@
 package com.example.yoanncos.applicationtest.fragments;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ListView;
 
 import com.example.yoanncos.applicationtest.Adapter.CityAdapter;
 import com.example.yoanncos.applicationtest.Entity.City;
@@ -22,13 +24,26 @@ public class ListFragment extends android.app.ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        final ArrayList<City> arrayListCity = new ArrayList<>();
+        ArrayList<City> arrayListCity = new ArrayList<>();
         City.initList(arrayListCity);
         final CityAdapter cityAdapter = new CityAdapter(getActivity(), R.layout.row_city,
                 arrayListCity);
-        arrayListCity.setAdapter(cityAdapter);
+
+        ListView listView = (ListView) getView().findViewById(R.id.list1);
+        listView.setAdapter(cityAdapter);
+
 
     }
 
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        String item = (String) getListAdapter().getItem(position);
+        CityFragment fragment = (CityFragment)getFragmentManager().findFragmentById(R.id.cityDetailFragment);
 
+        if (fragment != null && fragment.isInLayout()){
+            fragment.setText(item);
+        }else {
+        }
+    }
 }

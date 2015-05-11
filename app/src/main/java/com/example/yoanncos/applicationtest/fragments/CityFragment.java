@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.yoanncos.applicationtest.R;
 
@@ -30,5 +31,12 @@ public class CityFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+    }
+
+    public void setText(String item){
+
+        TextView view = (TextView)getView().findViewById(R.id.tvCityName);
+        view.setText(item);
+
     }
 }

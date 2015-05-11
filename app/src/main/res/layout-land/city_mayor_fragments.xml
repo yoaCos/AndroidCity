@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="match_parent">
 
 
     <fragment
@@ -8,13 +10,19 @@
         android:layout_width="150dip"
         android:layout_height="match_parent"
         class="com.example.yoanncos.applicationtest.fragments.ListFragment">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:id="@+id/list1"
+            android:layout_height="wrap_content">
+        </ListView>
     </fragment>
 
     <fragment
-        android:id="@+id/cityFragment"
+        android:id="@+id/cityDetailFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         class="com.example.yoanncos.applicationtest.fragments.CityFragment">
     </fragment>
 
-</RelativeLayout>
+</LinearLayout>
