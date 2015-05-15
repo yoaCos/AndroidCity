@@ -1,24 +1,40 @@
 package com.example.yoanncos.applicationtest;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+
+/**
+ * Created by Yoann.Cos on 04/05/2015.
+ */
+public class MainActivity extends AppCompatActivity{
 
 
-public class MainActivity extends AppCompatActivity {
+    private String[] mMenuSections;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private ActionBarDrawerToggle mDrawerToggle;
 
+    private TextView login;
+    private TextView password;
 
     private final String EXTRA_LOGIN = "login";
     private final String EXTRA_PASSWORD = "password";
-
-    private EditText login;
-    private EditText password;
-    private Button connection;
 
 
     @Override
@@ -26,45 +42,107 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        login = (EditText)findViewById(R.id.etLogin);
-        password = (EditText)findViewById(R.id.etPass);
-        connection = (Button)findViewById(R.id.btnValidate);
-        connection.setOnClickListener(new View.OnClickListener() {
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+
+
+        mMenuSections = getResources().getStringArray(R.array.navigation_drawer);
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView)findViewById(R.id.left_drawer);
+
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_left,
+                mMenuSections));
+
+        mDrawerToggle = new ActionBarDrawerToggle(this,
+                mDrawerLayout,
+                R.string.open_drawer,
+                R.string.closed_drawer){
+
             @Override
-            public void onClick(View v) {
-            goToNextActivity();
+            public void onDrawerOpened(View drawerView) {
+                Log.d("CityActivity", "onDrawerClosed");
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                Log.d("CityActivity", "onDrawerClosed");
+            }
+        };
+
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
+
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+
+                    case 0 :
+                        Intent intent = new Intent(MainActivity.this, BidonActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 1 :
+                        Intent intent1 = new Intent(MainActivity.this, MayorListActivity.class);
+                        startActivity(intent1);
+                }
             }
         });
+
+        Intent intent = getIntent();
+
+        if ((login = (TextView)findViewById(R.id.tvWelcome))!=null) {
+
+            String loginTxt = String.format("Bienvenue %s ton mot de passe est %s :D",
+                    intent.getStringExtra(EXTRA_LOGIN), intent.getStringExtra(EXTRA_PASSWORD));
+
+            login = (TextView) findViewById(R.id.tvWelcome);
+            login.setText(loginTxt);
+        }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_city, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (mDrawerToggle.onOptionsItemSelected(item)){
             return true;
         }
 
+        switch (id){
+            case R.id.action_settings:
+                return true;
+            case R.id.action_search:
+                return true;
+            case R.id.action_share:
+                return true;
+            case R.id.action_information:
+                return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
-    private void goToNextActivity(){
-        Intent intent = new Intent(MainActivity.this, CityListActivity.class);
-        intent.putExtra(EXTRA_LOGIN, login.getText().toString());
-        intent.putExtra(EXTRA_PASSWORD, password.getText().toString());
-        startActivity(intent);
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public void onPostCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onPostCreate(savedInstanceState, persistentState);
+        mDrawerToggle.syncState();
     }
 
-
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+ }
 }
+
+
+
+

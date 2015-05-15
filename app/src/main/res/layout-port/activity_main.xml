@@ -20,15 +20,27 @@
                 android:layout_height="50dp"
                 android:background="@android:color/holo_blue_bright"
                 android:textColor="@android:color/white"
-                android:layout_marginBottom="20dp"
                 android:gravity="center" />
 
-            <ListView
-                android:id="@+id/listeVille"
+            <FrameLayout
+                android:layout_width="match_parent"
                 android:layout_below="@+id/tvWelcome"
-                android:layout_width="fill_parent"
+                android:id="@+id/container"
                 android:layout_height="wrap_content">
-            </ListView>
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent" android:layout_height="match_parent">
+
+                    <fragment class="com.example.yoanncos.applicationtest.fragments.ListFragment"
+                        android:id="@+id/listFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
 
         </RelativeLayout>
 
