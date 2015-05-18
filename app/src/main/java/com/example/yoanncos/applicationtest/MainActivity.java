@@ -1,6 +1,8 @@
 package com.example.yoanncos.applicationtest;
 
 import android.annotation.TargetApi;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -16,8 +18,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.yoanncos.applicationtest.fragments.CityFragment;
 
 /**
  * Created by Yoann.Cos on 04/05/2015.
@@ -36,12 +41,15 @@ public class MainActivity extends AppCompatActivity{
     private final String EXTRA_LOGIN = "login";
     private final String EXTRA_PASSWORD = "password";
 
+    private boolean mDualPane;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        determinePanelLayout();
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -99,6 +107,18 @@ public class MainActivity extends AppCompatActivity{
 
             login = (TextView) findViewById(R.id.tvWelcome);
             login.setText(loginTxt);
+        }
+    }
+
+    private void determinePanelLayout() {
+        FrameLayout fragmentDetail = (FrameLayout)findViewById(R.id.frameDetails);
+        if (fragmentDetail != null){
+            mDualPane = true;
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.add(R.id.frameDetails, new CityFragment());
+            ft.commit();
+
         }
     }
 

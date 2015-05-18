@@ -1,13 +1,13 @@
 package com.example.yoanncos.applicationtest.fragments;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.example.yoanncos.applicationtest.Adapter.CityAdapter;
 import com.example.yoanncos.applicationtest.CityActivity;
@@ -38,48 +38,10 @@ public class ListFragment extends android.app.ListFragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt("curChoice", mCurCheckPosition);
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        showDetails(position);
-    }
-
-    private void showDetails(int index) {
-        mCurCheckPosition = index;
-
-        if (mDualPane){
-            getListView().setItemChecked(index, true);
-
-            CityFragment cityFragment = (CityFragment)getFragmentManager()
-                    .findFragmentById(R.id.frameDetails);
-
-            if (cityFragment == null){
-
-                cityFragment = CityFragment.newInstance(index);
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-
-                if (index == 0){
-                    ft.replace(R.id.frameDetails, cityFragment);
-                    Toast.makeText(getActivity(), "index == 0",
-                            Toast.LENGTH_LONG).show();
-                }else {
-                    Toast.makeText(getActivity(), "index != 0",
-                            Toast.LENGTH_LONG).show();
-                }
-
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                ft.commit();
-
-            }else {
-                Intent intent = new Intent();
-                intent.setClass(getActivity(), CityActivity.class);
-                intent.putExtra("index", index);
-                startActivity(intent);
-            }
-        }
     }
 
 
@@ -91,19 +53,30 @@ public class ListFragment extends android.app.ListFragment {
         final CityAdapter cityAdapter = new CityAdapter(getActivity(), R.layout.row_city, arrayListCity);
         getListView().setAdapter(cityAdapter);
 
+        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-        View detailsFrame = getActivity().findViewById(R.id.frameDetails);
-        mDualPane = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;
+                CityFragment cityFragment = (CityFragment)getFragmentManager().findFragmentById(R.id.frameDetails);
 
-        if (savedInstanceState != null){
-            mCurCheckPosition = savedInstanceState.getInt("curChoice", 0);
-        }
+                final TextView tvCity = (TextView)view.findViewById(R.id.tvCity);
+                final TextView tvCountry = (TextView)view.findViewById(R.id.tvCountry);
 
-        if (mDualPane){
-            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-            showDetails(mCurCheckPosition);
-        }
+                String s = (String)tvCity.getText();
+                String st = (String)tvCountry.getText();
 
+                if (cityFragment != null && cityFragment.isVisible()){
+                    cityFragment.setText(s, st);
+
+                }else {
+                    Intent intent = new Intent(getActivity(), CityActivity.class);
+                    intent.putExtra("name", s);
+                    intent.putExtra("country", st);
+                    startActivity(intent);
+                }
+
+            }
+        });
     }
 }
 
